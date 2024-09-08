@@ -1,0 +1,98 @@
+/* styles.css */
+.container {
+    max-width: 1200px;
+    height: 700px;
+    margin: 0 auto;
+    padding: 20px;
+    overflow-x: auto;
+}
+
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.table-dark {
+    background-color: #343a40;
+    color: #fff;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #495057;
+}
+
+.thead-dark th {
+    background-color: #212529;
+    color: #fff;
+}
+
+.thead-dark th, .table td, .table th {
+    padding: 0.75rem;
+    text-align: left;
+}
+
+.submitbutton {
+    width: 50%;
+    height: 35px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submitbutton:hover {
+    background-color: #45a049;
+}
+/* SearchBar.css */
+
+.search-bar-container {
+    margin-bottom: 15px; /* Adjust spacing as needed */
+    display: flex;
+    justify-content: center;/* Center align the search bar */
+    
+}
+
+.search-bar-input {
+    width: 100%; /* Full width of the container */
+    max-width: 500px; /* Maximum width of the search bar */
+    padding: 10px; /* Padding inside the input */
+    font-size: 16px;
+    text-align: center; /* Font size for the text */
+    border: 1px solid #ced4da; /* Border color */
+    border-radius: 6px; /* Rounded corners */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Optional shadow for better visibility */
+}
+
+.search-bar-input:focus {
+    border-color: #007bff; /* Border color on focus */
+    outline: none; /* Remove default outline */
+}
+.expand{
+    align-items: center;
+    justify-content: center;
+}
+.date {
+    width: 10%;
+    height: 35px;
+    padding: 0.5rem;
+    margin-left: 10rem;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: #f9f9f9;
+}
+.renew{
+    width: 10%;
+    height: 35px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
