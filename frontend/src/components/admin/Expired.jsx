@@ -7,9 +7,10 @@ function Active(props) {
     const [expandedRow, setExpandedRow] = useState(null); // State to track the expanded row
     const [selectedOption, setSelectedOption] = useState(''); // State for selected radio button
     const [searchTerm, setSearchTerm] = useState(''); // State to store the search input
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
     useEffect(() => {
-        axios.get('http://localhost:4000/api/contacts/')
+        axios.get(`${backendUrl}/api/contacts/`)
             .then(response => setMembers(response.data))
             .catch(err => console.log(err));
     }, []);
@@ -47,7 +48,7 @@ function Active(props) {
     
         try {
             // Fetch the contact details to get the current endDate
-            const contactResponse = await axios.get(`http://localhost:4000/api/contacts/${userId}`);
+            const contactResponse = await axios.get(`${backendUrl}/api/contacts/${userId}`);
             const contact = contactResponse.data;
     
             // Calculate the new start date and end date
@@ -57,7 +58,7 @@ function Active(props) {
             const newEndDateISO = newEndDate.toISOString();
     
             // Update the contact's details via API
-            await axios.put(`http://localhost:4000/api/contacts/${userId}`, {
+            await axios.put(`${backendUrl}/api/contacts/${userId}`, {
                 date: newStartDate,
                 endDate: newEndDateISO,
                 status: 'Active',
@@ -67,7 +68,7 @@ function Active(props) {
             // Optionally, refresh the data or give feedback
             console.log(`Contact ${userId} renewed successfully.`);
             // Refresh data after update
-            const response = await axios.get('http://localhost:4000/api/contacts/');
+            const response = await axios.get(`${backendUrl}/api/contacts/`);
             setMembers(response.data);
         } catch (error) {
             console.error('Error renewing contact:', error);

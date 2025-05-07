@@ -4,10 +4,13 @@ import './Active.css';
 
 function Active(props) {
     const [members, setMembers] = useState([]);
-    const [searchTerm, setSearchTerm] = useState(''); // State to store the search input
+    const [searchTerm, setSearchTerm] = useState(''); 
+    // const backendUrl = process.env.BACKEND_URL;// State to store the search input
 
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
     useEffect(() => {
-        axios.get(`${process.env.BACKEND_URL}/api/contacts/`)
+        
+        axios.get(`${backendUrl}/api/contacts/`)
             .then(response => setMembers(response.data))
             .catch(err => console.log(err));
     }, []);
@@ -83,68 +86,3 @@ function Active(props) {
 }
 
 export default Active;
-
-
-// import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
-// import './Active.css';
-
-// function Active(props) {
-//     const [members, setMembers] = useState([]);
-    
-//     useEffect(() => {
-//         axios.get('http://localhost:4000/api/contacts/')
-//             .then(response => setMembers(response.data))
-//             .catch(err => console.log(err));
-//     }, []);
-
-//     return (
-//         <div className="container mt-5">
-//             <table className="table table-dark table-striped">
-//                 <thead className="thead-dark">
-//                     <tr>
-//                         <th scope="col">Name</th>
-//                         <th scope="col">Phone</th>
-//                         <th scope="col">Status</th>
-//                         <th scope="col">Rem</th>
-//                         <th scope="col">Start Date</th>
-//                         <th scope="col">End Date</th>
-//                     </tr>
-//                 </thead>
-//                 <tbody>
-//                     {members
-//                         .filter(user => user.status === "Active" && user.gender === props.gender)
-//                         .sort((a, b) => new Date(b.date) - new Date(a.date)) // Sorting by date in descending order
-//                         .map((user) => {
-//                             // Helper function to format a date as 'dd-mm-yyyy'
-//                             const formatDate = (dateString) => {
-//                                 const date = new Date(dateString);
-//                                 const day = String(date.getDate()).padStart(2, '0');
-//                                 const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
-//                                 const year = date.getFullYear();
-//                                 return `${day}-${month}-${year}`;
-//                             };
-
-//                             // Format the start date and end date
-//                             const formattedStartDate = formatDate(user.date);
-//                             const formattedEndDate = formatDate(user.endDate);
-
-//                             return (
-//                                 <tr key={user._id}>
-//                                     <td>{user.name}</td>
-//                                     <td>{user.phone}</td>
-//                                     <td>{user.status}</td>
-//                                     <td>{user.dews}</td>
-//                                     <td>{formattedStartDate}</td>
-//                                     <td>{formattedEndDate}</td>
-//                                 </tr>
-//                             );
-//                         })
-//                     }
-//                 </tbody>
-//             </table>
-//         </div>
-//     );
-// }
-
-// export defau
