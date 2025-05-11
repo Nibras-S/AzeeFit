@@ -1,6 +1,6 @@
 const express = require('express');
 const dotenv = require("dotenv").config();
-const cors = require('cors'); // Moved up for clarity
+const cors = require('cors'); // Import CORS
 const errorHandler = require("./middleware/errorHandle");
 const connectDB = require("./config/dbConnect");
 
@@ -10,22 +10,27 @@ const port = process.env.PORT || 5000;
 // Connect to MongoDB
 connectDB();
 
-// Define allowed origins
+// Define allowed origins for CORS (both local and production)
 const allowedOrigins = [
   'http://localhost:3000',            // Local development
   'https://azee-fit.vercel.app'      // Your deployed frontend on Vercel
 ];
 
-// Enable CORS with origin control
+// Enable CORS with specific origins
 app.use(cors({
   origin: allowedOrigins,
-  credentials: true
+  credentials: true // Allow cookies or authentication headers
 }));
 
-// Enable JSON body parsing
+// Middleware to parse JSON body
 app.use(express.json());
 
-// Routes
+// Test route to check if the server is running
+app.get("/", (req, res) => {
+  res.send("Backend is working!");
+});
+
+// API Routes
 app.use("/api/contacts", require("./routes/contactRoutes"));
 
 // Error handler middleware
