@@ -66,7 +66,7 @@ const contactSchema = mongoose.Schema({
 const Contact = mongoose.model('Contact', contactSchema);
 
 // Set up the scheduled task to run every minute for testing purposes
-cron.schedule('* * * * *', async () => {  // This runs every minute
+cron.schedule('*/5 * * * *', async () => {  // This runs every minute
     try {
         // Fetch all contacts with "Active" status
         // const contacts = await Contact.find({ status: "Active" });
