@@ -13,7 +13,7 @@ const createContact = asyncHandler(async(req,res)=>{
     const {name,phone,plan,date,gender} = req.body;
     if(!name || !phone ||!plan||!gender){
         res.status(400);
-        throw new Error("allfield is mandatory");
+        throw new Error("all field is mandatory");
     }
     const contact = await Contact.create({
         name,phone,plan,date,gender
