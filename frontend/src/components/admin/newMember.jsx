@@ -106,4 +106,3 @@ function NewMember() {
 }
 
 export default NewMember;
-

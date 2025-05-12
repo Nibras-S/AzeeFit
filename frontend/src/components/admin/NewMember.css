@@ -67,3 +67,56 @@
 .submit-button:hover {
     background-color: #45a049;
 }
+
+@media (max-width: 768px) {
+    .form-container {
+      padding: 1rem;
+      height: auto;
+      align-items: flex-start;
+    }
+  
+    .new-member-form {
+      width: 100%;
+      padding: 1.5rem;
+      box-shadow: none;
+      border-radius: 8px;
+    }
+  
+    .form-label {
+      font-size: 0.95rem;
+    }
+  
+    .form-input,
+    .form-select,
+    .phone-input {
+      font-size: 0.95rem;
+      padding: 0.5rem;
+    }
+  
+    .submit-button {
+      font-size: 0.95rem;
+      padding: 0.65rem;
+    }
+  
+    .radio-group {
+      display: flex;
+      flex-direction: row;
+    }
+  
+    .radio-group label {
+      margin-bottom: 0rem;
+      margin-left: 2px; /* override inline style */
+    }
+  }
+  
+
+  @media (max-width: 480px) {
+    .new-member-form {
+      padding: 1rem;
+    }
+  
+    .submit-button {
+      padding: 0.5rem;
+    }
+  }
+  
