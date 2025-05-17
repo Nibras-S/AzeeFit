@@ -3,6 +3,7 @@ const dotenv = require("dotenv").config();
 const cors = require('cors'); // Import CORS
 const errorHandler = require("./middleware/errorHandle");
 const connectDB = require("./config/dbConnect");
+const reminderRoutes = require("./routes/reminderRoutes");
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -32,6 +33,8 @@ app.get("/", (req, res) => {
 
 // API Routes
 app.use("/api/contacts", require("./routes/contactRoutes"));
+
+app.use("/api/reminders", reminderRoutes);
 
 // Error handler middleware
 app.use(errorHandler);
