@@ -67,33 +67,31 @@ const Contact = mongoose.model('Contact', contactSchema);
 
 // Set up the scheduled task to run every minute for testing purposes
 cron.schedule('* * * * *', async () => {
-    try {
-        const contacts = await Contact.find({ status: { $in: ["Active", "InActive"] } });
+  try {
+    const contacts = await Contact.find({ status: { $in: ["Active", "InActive"] } });
 
-        for (const contact of contacts) {
-            const now = new Date();
-            now.setHours(0, 0, 0, 0); // Normalize to start of the day
+    for (const contact of contacts) {
+      const now = new Date();
+      now.setHours(0, 0, 0, 0);
 
-            const endDate = new Date(contact.endDate);
-            endDate.setHours(0, 0, 0, 0); // Normalize to start of the day
+      const endDate = new Date(contact.endDate);
+      endDate.setHours(0, 0, 0, 0);
 
-            // Calculate dews (days remaining)
-            const timeDiff = endDate.getTime() - now.getTime();
-            const dews = Math.ceil(timeDiff / (1000 * 3600 * 24));
-            contact.dews = dews;
+      // Update status
+      contact.status = now <= endDate ? "Active" : "InActive";
 
-            // Update status based on `dews`
-            contact.status = dews >= 0 ? "Active" : "InActive";
+      // Update dews
+      const timeDiff = endDate.getTime() - now.getTime();
+      contact.dews = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
-            await contact.save();
-            console.log(`Updated ${contact.name}: status=${contact.status}, dews=${contact.dews}`);
-        }
-    } catch (err) {
-        console.error('Error updating contacts or dews:', err);
+      await contact.save();
+      console.log(`Updated ${contact.name}: status=${contact.status}, dews=${contact.dews}`);
     }
+  } catch (err) {
+    console.error('Error updating contacts or dews:', err);
+  }
 });
 
-  
 
 module.exports = Contact;
 
