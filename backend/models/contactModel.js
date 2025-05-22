@@ -66,34 +66,34 @@ const contactSchema = mongoose.Schema({
 const Contact = mongoose.model('Contact', contactSchema);
 
 // Set up the scheduled task to run every minute for testing purposes
-cron.schedule('* * * * *', async () => {  // This runs every minute
+cron.schedule('* * * * *', async () => {
     try {
-        // Fetch all contacts with "Active" status
-        // const contacts = await Contact.find({ status: "Active" });
         const contacts = await Contact.find({ status: { $in: ["Active", "InActive"] } });
 
         for (const contact of contacts) {
             const now = new Date();
-          
-            if (now > contact.endDate) {
-              contact.status = "InActive";
-            }
-          
+            now.setHours(0, 0, 0, 0); // Normalize to start of the day
+
             const endDate = new Date(contact.endDate);
-            const timeDiff = endDate - now;
-            const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
-          
-            contact.dews = daysDiff;
-          
-            await contact.save(); // this will now be awaited properly
+            endDate.setHours(0, 0, 0, 0); // Normalize to start of the day
+
+            // Calculate dews (days remaining)
+            const timeDiff = endDate.getTime() - now.getTime();
+            const dews = Math.ceil(timeDiff / (1000 * 3600 * 24));
+            contact.dews = dews;
+
+            // Update status based on `dews`
+            contact.status = dews >= 0 ? "Active" : "InActive";
+
+            await contact.save();
             console.log(`Updated ${contact.name}: status=${contact.status}, dews=${contact.dews}`);
-          }
-          
-        
+        }
     } catch (err) {
         console.error('Error updating contacts or dews:', err);
     }
 });
+
+  
 
 module.exports = Contact;
 
