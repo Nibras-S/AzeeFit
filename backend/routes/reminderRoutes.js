@@ -112,6 +112,33 @@ router.post("/populate", async (req, res) => {
   }
 });
 
+
+// PATCH update reminder status to reset sentCount and messageStatus
+router.patch("/reset/:contactId", async (req, res) => {
+  try {
+    const contactId = req.params.contactId;
+
+    // Find the reminder by contactId
+    const reminder = await Reminder.findOne({ contactId });
+
+    if (!reminder) {
+      return res.status(404).json({ error: "Reminder not found for this contact" });
+    }
+
+    // Reset the fields
+    reminder.sentCount = 0;
+    reminder.messageStatus = "Pending";
+
+    await reminder.save();
+
+    return res.json({ success: true, message: "Reminder reset successfully", reminder });
+  } catch (error) {
+    console.error("Error resetting reminder:", error);
+    return res.status(500).json({ error: "Server error" });
+  }
+});
+
+
 // POST update reminder (when WhatsApp button is clicked)
 router.post("/log/:contactId", async (req, res) => {
   try {
