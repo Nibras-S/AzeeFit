@@ -31,6 +31,8 @@ app.get("/", (req, res) => {
   res.send("Backend is working!");
 });
 
+const whatsappRoutes = require('./routes/whatsappRoutes');
+app.use('/api/whatsapp', whatsappRoutes); // route base
 // API Routes
 app.use("/api/contacts", require("./routes/contactRoutes"));
 
