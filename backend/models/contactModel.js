@@ -86,7 +86,7 @@ cron.schedule('* * * * *', async () => {  // This runs every minute
             contact.dews = daysDiff;
           
             await contact.save(); // this will now be awaited properly
-            console.log(`Updated ${contact.name}: status=${contact.status}, dews=${contact.dews}`);
+            //console.log(`Updated ${contact.name}: status=${contact.status}, dews=${contact.dews}`);
           }
           
         
